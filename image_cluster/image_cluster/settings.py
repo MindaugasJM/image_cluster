@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'user_profile',
     'mane_page',
+    'images',
     'crispy_forms',
     'tinymce',
     'debug_toolbar',
