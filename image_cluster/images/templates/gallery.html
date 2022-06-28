@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<html lang="en">
 {% load static %}
 <body >
     {% if request.user.is_authenticated %}
-        <p>Your collenction {{request.user}}</p>
+    </div>
+        <a class="btn btn-dark m-3 buttonbox" href="{% url 'upload_images' %}" > upload_images </a>
+        <a class="btn btn-dark m-3 buttonbox spinner-button btn btn-primary mb-2" type="button" id="btnFetch" href="{% url 'group_images' %}" > group images </a>
+        </div>
+    </div>
     {% endif %}
     <div class="container ">
         {% for image in images %}
@@ -12,7 +15,17 @@
             <img src="{% if image.image %}{{ image.image.url }}{% else %}{% static 'images/img/no-image-icon.PNG' %}{% endif %}">
         </div>
         {% endfor %}
-    </div>
-    <a  class="btn btn-primary m-3" href="{% url 'upload_images' %}" > upload_images </a>
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#btnFetch").click(function() {
+          $(this).prop("disabled", true);
+          $(this).html(
+            '<i class="spinner-border text-light" role="status"></i>' 
+          );
+        });
+    });  
+</script>
+
 {% endblock content %}

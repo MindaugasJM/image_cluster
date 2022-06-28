@@ -12,6 +12,7 @@ from tensorflow.keras.models import Model
 
 from sklearn.metrics.pairwise import cosine_similarity
 
+
 # enagle GPU usadge (CUDA and cuDNN needs to be set up beforehand)
 physical_device = tf.config.experimental.list_physical_devices('GPU')
 print('GPU number', len(physical_device))

@@ -13,9 +13,9 @@ class Image(models.Model):
     image_group = models.CharField(_('image group'), max_length=5, unique=False, null=True)
 
     def __str__(self):
-        return self.description
+        return f' {self.owner}, {self.image}, {self.image_name}, {self.is_image_grouped}, {self.image_group}' 
 
     class Meta:
-        verbose_name = 'Photo'
-        verbose_name_plural = 'Photos'
+        verbose_name = 'Image'
+        verbose_name_plural = 'Images'
 

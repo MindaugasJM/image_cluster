@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from . models import Image
 
 @login_required(login_url='login')
@@ -31,3 +32,10 @@ def upload_images(request):
         return redirect('gallery')
     return render(request, 'upload_images.html')
 
+
+# @login_required(login_url='login')
+@api_view(['GET'])
+def activate_img_analysis(request):
+    if request.method == 'GET':
+        pass
+    return redirect('gallery') 

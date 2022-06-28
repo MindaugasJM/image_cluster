@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'images',
     'crispy_forms',
     'tinymce',
+    'rest_framework',
     'debug_toolbar',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -177,4 +178,11 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
     'menubar': False,
     'toolbar2': '',
+}
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
