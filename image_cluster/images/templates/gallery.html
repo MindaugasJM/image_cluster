@@ -11,15 +11,27 @@
     {% endif %}
     <div class="container ">
         
-        
-        {{group0}}
+        {{unique_groupes}}
+        {{all_groups}}
+        {{groupes_of_img}}
 
-        {{images.image_group}}
-        {% for image in images.image_group %}
-        <div class="row row-cols-4">
-            <img src="{% if image.image %} {{ image.image.url }}{% else %}{% static 'images/img/no-image-icon.PNG' %}{% endif %}">
+        {{images}}
+        {{images.last.image_group}}
+        
+        {% for group in unique_groupes %}
+        <div class="row my-3">
+          {% for image in images %}
+          {% if group == image.image_group %}
+            <div class="col-4">
+              <img class="img-fluid" src="{% if image.image %} {{ image.image.url }}{% else %}{% static 'images/img/no-image-icon.PNG' %}{% endif %}">
+            </div>
+          {% endif %}
+          {% endfor %}  
         </div>
         {% endfor %}
+        
+        
+      
 </body>
 
 <script type="text/javascript">

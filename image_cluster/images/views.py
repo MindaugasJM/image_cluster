@@ -19,13 +19,23 @@ from . models import Image
 @login_required(login_url='login')
 def view_gallery(request):
     user = request.user.id
-    images = Image.objects.filter(owner_id=user)
-    iterator = images.distinct(image_group=1)
-    group0 = images.last()
+    images = Image.objects.filter(owner_id=user).order_by('image_group')
+    all_groups = images.values_list('image_group', flat=True)
+    unique_groupes = []
+    for group in all_groups:
+        if group not in unique_groupes:
+            unique_groupes.append(group)
+
+    
+    # groupes_of_img = []
+    # for gorup in unique_groupes:
+    #     img_belonging_to_a_group = images.filter(image_group=group)
+    #     groupes_of_img.append(img_belonging_to_a_group)
+    
 
     # group0 = images.distinct(image_group=int)
     # selected_items = ItemIn.objects.all().filter(item_category=selected_cat).distinct('item_name')
-    context = {'images': images, 'group0': iterator}
+    context = {'images': images, 'unique_groupes': unique_groupes, 'all_groups':all_groups, }
     return render(request, 'gallery.html', context)
 
 @login_required(login_url='login')
@@ -57,19 +67,27 @@ def activate_img_analysis(request):
         print('GPU number', len(physical_device))
         tf.config.experimental.set_memory_growth(physical_device[0], True)
 
-        # locating_img_dir = os.path.abspath('../'+'media/images/user_uploaded_images')
-        # if os.getcwd() != locating_img_dir:
-        #     change_dir_to_img = os.chdir(locating_img_dir)
-        # else:
-        locating_img_dir = os.path.abspath('./'+'media/images/user_uploaded_images')
-        change_dir_to_img = os.chdir(locating_img_dir)
+        from django.conf import settings
+
         all_img_form_media = []
+        # change_dir_to_img = settings.BASE_DIR.joinpath('media/images/user_uploaded_images')
+        # print(change_dir_to_img)
+        locating_img_dir = os.path.abspath('./'+'media/images/user_uploaded_images')
+        if os.getcwd() != locating_img_dir:
+            change_dir_to_img = os.chdir(locating_img_dir)
+    
+
+        # locating_img_dir = os.path.abspath('./'+'media/images/user_uploaded_images')
+        # change_dir_to_img = os.chdir(locating_img_dir)
+        # all_img_form_media = []
 
         with os.scandir(change_dir_to_img) as files:
             for file in files:
+                print(file)
                 if file.name.endswith('.png') | file.name.endswith('.jpeg') | file.name.endswith ('.jpg'):
                     all_img_form_media.append(file.name)
 
+        # print(all_img_form_media)
         # img_from_db_no_features = Image.objects.filter(image_features__isnull=True)
 
         # img_to_preprocess = []
@@ -130,4 +148,5 @@ def activate_img_analysis(request):
                 image.image_group = group
                 image.save(update_fields=["image_group"]) 
     
+        os.chdir(settings.BASE_DIR)
     return redirect('gallery') 
