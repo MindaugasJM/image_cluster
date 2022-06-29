@@ -20,7 +20,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">{% block navigation %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'base' %}">{% trans 'home'|capfirst %}</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">{% trans 'gallery'|capfirst %}</a></li>
                 {% endblock navigation %}</ul>
                 <!-- User menu -->
