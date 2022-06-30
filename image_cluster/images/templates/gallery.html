@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static i18n %}
 {% block content %}
 {% load static %}
 <script type="text/javascript">
@@ -17,9 +18,9 @@
     {% csrf_token %}
     {{checked_boxes}}
         </div>
-            <a class="btn btn-dark m-3 buttonbox" href="{% url 'upload_images' %}" > upload images </a>
-            <a class="btn btn-dark m-3 buttonbox spinner-button btn btn-primary mb-2" type="button" id="btnFetch" href="{% url 'group_images' %}" > group images </a>
-            <button class="btn btn-dark m-3 buttonbox" type="submit" > delete images </button>
+            <a class="btn btn-dark m-3 buttonbox" href="{% url 'upload_images' %}" > {% trans 'upload images'|capfirst %} </a>
+            <a class="btn btn-dark m-3 buttonbox spinner-button btn btn-primary mb-2" type="button" id="btnFetch" href="{% url 'group_images' %}" > {% trans 'group images'|capfirst %} </a>
+            <button class="btn btn-dark m-3 buttonbox" type="submit" > {% trans 'delete images'|capfirst %} </button>
         </div>
     {% endif %}
     <div class="container ">
